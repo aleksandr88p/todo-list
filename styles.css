@@ -1,0 +1,230 @@
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  line-height: 1.5;
+  color-scheme: light;
+  --bg: #fcf9f7;
+  --surface: #fffdfc;
+  --text: #202136;
+  --muted: #686577;
+  --border: #eee8ec;
+  --accent: #7950cc;
+  --accent-hover: #653db6;
+  --on-accent: #ffffff;
+  --lavender: #eee5fa;
+  --peach: #ffe6dd;
+  --mint: #ddf3e9;
+  --cream: #fff2d1;
+  --green: #27815c;
+  --orange: #b75030;
+  --amber: #aa740e;
+  --completed: #edf6f1;
+  --done-text: #657168;
+  --input: #faf7fa;
+  --error: #a32f3c;
+  --error-bg: #fce8ec;
+  --high-bg: #ffe2d8;
+  --high-text: #98432c;
+  --medium-bg: #ffedbb;
+  --medium-text: #805418;
+  --low-bg: #cceddd;
+  --low-text: #24654a;
+  --shadow: 0 3px 5px #30213c03, 0 8px 24px #30213c04;
+  background: var(--bg);
+  color: var(--text);
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #191720;
+  --surface: #25222e;
+  --text: #f3eef9;
+  --muted: #bdb5c9;
+  --border: #403747;
+  --accent: #c2a3ff;
+  --accent-hover: #d4beff;
+  --on-accent: #291b41;
+  --lavender: #392e4d;
+  --peach: #48302e;
+  --mint: #263f36;
+  --cream: #433a28;
+  --green: #8cd7b4;
+  --orange: #f3ac92;
+  --amber: #e8c37e;
+  --completed: #26362e;
+  --done-text: #afc6b7;
+  --input: #201d27;
+  --error: #ffb2bd;
+  --error-bg: #482b35;
+  --high-bg: #4e332d;
+  --high-text: #f4b8a6;
+  --medium-bg: #493c27;
+  --medium-text: #f4d28b;
+  --low-bg: #243e33;
+  --low-text: #9cdabc;
+  --shadow: 0 5px 20px #00000012;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 280px; }
+button, input, select { font: inherit; }
+button, select { cursor: pointer; color: inherit; }
+[hidden] { display: none !important; }
+.svg-definitions { position: absolute; width: 0; height: 0; overflow: hidden; }
+.icon { display: inline-block; flex-shrink: 0; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+button, input, select, .task-item, .task-title { transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.todo-app { width: min(100% - 80px, 1440px); margin: 32px auto 24px; }
+.topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 12px; margin: 0; font-size: 1.4rem; font-weight: 800; letter-spacing: -.04em; white-space: nowrap; }
+.brand-mark { display: grid; place-items: center; width: 44px; height: 44px; background: var(--accent); color: var(--on-accent); border-radius: 13px; box-shadow: 0 3px 6px #7950cc19; }
+.brand-mark .icon { width: 29px; height: 29px; stroke-width: 3; }
+.brand-spark { width: 18px; height: 18px; align-self: flex-start; color: var(--accent); }
+.preferences { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+.theme-control, .language-control { max-width: 240px; }
+.theme-switch, .language-switch { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--border); border-radius: 28px; background: var(--surface); box-shadow: 0 2px 4px #30213c03; }
+.theme-switch button, .language-switch button { display: grid; place-items: center; min-width: 56px; min-height: 38px; padding: 7px 16px; border: 0; border-radius: 24px; background: transparent; color: var(--muted); font-size: .9rem; font-weight: 750; }
+.theme-switch button[aria-pressed="true"], .language-switch button[aria-pressed="true"] { background: var(--lavender); color: var(--accent); }
+.theme-switch .icon { width: 22px; height: 22px; }
+.overview { display: grid; grid-template-columns: 1.65fr 1.15fr repeat(3, 1fr); gap: 22px; align-items: stretch; margin: 48px 0 36px; }
+.intro { min-width: 0; align-self: center; padding-right: 12px; }
+.eyebrow { margin: 0 0 12px; color: var(--muted); font-size: .67rem; font-weight: 750; letter-spacing: .1em; }
+h1 { margin: 0; font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 800; line-height: 1.1; letter-spacing: -.055em; }
+.subtitle { margin: 22px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+.stat-card { min-width: 0; padding: 24px; border-radius: 26px; box-shadow: 0 2px 3px #30213c03; }
+.stat-card > .icon { width: 28px; height: 28px; margin-bottom: 10px; }
+.stat-card h2 { margin: 0; font-size: .9rem; font-weight: 700; overflow-wrap: anywhere; }
+.stat-value { font-size: 2.25rem; line-height: 1.15; font-weight: 800; letter-spacing: -.055em; margin: 12px 0 0; font-variant-numeric: tabular-nums; }
+.progress-card { background: var(--lavender); }
+.progress-card > .icon { color: var(--accent); }
+.total-card { background: var(--peach); }
+.total-card > .icon { color: var(--orange); }
+.completed-card { background: var(--mint); }
+.completed-card > .icon { color: var(--green); }
+.active-card { background: var(--cream); }
+.active-card > .icon { color: var(--amber); }
+progress { display: block; width: 100%; height: 10px; border: 0; border-radius: 20px; overflow: hidden; background: var(--surface); accent-color: var(--accent); }
+.progress-card progress { margin-top: 15px; }
+progress::-webkit-progress-bar { background: var(--surface); border-radius: 20px; }
+progress::-webkit-progress-value { background: var(--accent); border-radius: 20px; transition: width .3s ease; }
+progress::-moz-progress-bar { background: var(--accent); border-radius: 20px; }
+.workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 28px; align-items: start; }
+.sidebar { display: grid; gap: 24px; }
+.encouragement { padding: 30px 24px; text-align: center; background: var(--lavender); border-radius: 26px; }
+.win-art { position: relative; display: grid; place-items: center; width: 126px; height: 100px; margin: 0 auto 18px; }
+.win-orbit { display: grid; place-items: center; width: 80px; height: 80px; border-radius: 24px; background: var(--surface); color: var(--accent); transform: rotate(-9deg); box-shadow: 7px 7px 0 #7950cc16; }
+.win-orbit .icon { width: 44px; height: 44px; }
+.art-spark { position: absolute; top: 4px; right: 0; width: 26px; height: 26px; color: var(--accent); }
+.encouragement h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.045em; margin: 0 0 12px; }
+.encouragement p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.6; }
+.summary-card, #task-form, .list-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; box-shadow: var(--shadow); }
+.summary-card { padding: 24px; }
+.summary-card h2 { font-size: 1rem; margin: 0 0 12px; font-weight: 750; }
+#progress-text { color: var(--muted); margin: 0 0 14px; font-size: .85rem; }
+.summary-meter { display: flex; align-items: center; gap: 12px; }
+.summary-meter progress { background: var(--lavender); }
+.summary-meter progress::-webkit-progress-bar { background: var(--lavender); }
+#summary-percent { font-size: .85rem; font-weight: 750; }
+.task-panel { min-width: 0; display: grid; gap: 18px; }
+#task-form { padding: 22px 26px; }
+#task-form h2 { margin: 0 0 14px; font-size: 1.1rem; font-weight: 750; letter-spacing: -.025em; }
+.input-row { display: grid; grid-template-columns: minmax(0, 1fr) 125px auto; gap: 12px; }
+input[type="text"], select { width: 100%; min-width: 0; height: 48px; padding: 11px 14px; color: var(--text); background: var(--input); border: 1px solid var(--border); border-radius: 13px; font-size: .9rem; }
+input::placeholder { color: var(--muted); }
+select { padding-right: 24px; }
+.priority-field { min-width: 0; }
+.add-button { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 20px; border: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font-size: .9rem; font-weight: 700; white-space: nowrap; }
+.add-button .icon { width: 18px; height: 18px; }
+:where(button, input, select):focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.status { margin: 12px 0 0; color: var(--error); font-size: .8rem; overflow-wrap: anywhere; }
+.status:empty { display: none; }
+.list-panel { padding: 14px 20px 22px; }
+.list-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin: 0 4px 14px; }
+.list-toolbar h2 { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 1.1rem; font-weight: 750; }
+.count-badge { display: inline-grid; place-items: center; min-width: 30px; height: 28px; padding: 0 8px; color: var(--accent); background: var(--lavender); border-radius: 20px; font-size: .85rem; }
+.filters { display: flex; gap: 4px; padding: 4px 0; }
+.filters button { min-height: 40px; border: 0; border-radius: 13px; padding: 8px 14px; background: transparent; color: var(--muted); font-size: .82rem; font-weight: 650; white-space: nowrap; }
+.filters button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); box-shadow: 0 3px 6px #7950cc12; }
+.task-list { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
+.task-list:empty { display: none; }
+.task-item { display: grid; grid-template-columns: minmax(0, 1fr) 100px 40px; align-items: center; gap: 16px; min-height: 60px; padding: 8px 12px 8px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 15px; box-shadow: 0 2px 3px #30213c03; }
+.task-label { display: flex; align-items: flex-start; gap: 14px; min-width: 0; padding: 9px 0; cursor: pointer; }
+.checkbox-wrap { position: relative; width: 22px; height: 22px; margin-top: 1px; flex-shrink: 0; }
+.task-checkbox { appearance: none; display: block; width: 22px; height: 22px; margin: 0; border: 1.5px solid var(--muted); border-radius: 5px; background: var(--surface); cursor: pointer; }
+.checkbox-wrap > .icon { pointer-events: none; position: absolute; inset: 2px; width: 18px; height: 18px; stroke-width: 2.5; color: var(--on-accent); opacity: 0; transition: opacity .2s ease; }
+.task-checkbox:checked { background: var(--accent); border-color: var(--accent); }
+.task-checkbox:checked + .icon { opacity: 1; }
+.task-title { min-width: 0; overflow-wrap: anywhere; white-space: pre-wrap; font-size: .9rem; font-weight: 550; }
+.task-item.is-completed { background: var(--completed); }
+.task-item.is-completed .task-title { color: var(--done-text); text-decoration: line-through; }
+.priority-badge { justify-self: start; padding: 4px 11px; border-radius: 9px; font-size: .76rem; font-weight: 750; }
+.priority-high { color: var(--high-text); background: var(--high-bg); }
+.priority-medium { color: var(--medium-text); background: var(--medium-bg); }
+.priority-low { color: var(--low-text); background: var(--low-bg); }
+.delete-button { display: grid; place-items: center; width: 40px; height: 40px; padding: 10px; border: 0; border-radius: 10px; color: var(--muted); background: transparent; }
+.delete-button .icon { width: 19px; height: 19px; }
+.empty-state { padding: 32px 16px; text-align: center; }
+.empty-icon { display: grid; place-items: center; margin: 0 auto 14px; width: 48px; height: 48px; border-radius: 16px; color: var(--accent); background: var(--lavender); }
+.empty-state p { margin: 0; font-weight: 650; }
+.empty-state .empty-hint { color: var(--muted); font-size: .85rem; font-weight: 400; margin-top: 6px; }
+footer { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 28px; color: var(--muted); font-size: .72rem; }
+footer .icon { width: 14px; height: 14px; color: var(--accent); }
+@media (hover: hover) {
+  .add-button:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .theme-switch button:hover, .language-switch button:hover { background: var(--lavender); color: var(--accent); }
+  .filters button:not([aria-pressed="true"]):hover { background: var(--lavender); color: var(--accent); }
+  .task-item:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: var(--shadow); }
+  .delete-button:hover { color: var(--error); background: var(--error-bg); }
+}
+@media (max-width: 1190px) {
+  .overview { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 32px; gap: 18px; }
+  .intro { grid-column: 1 / -1; padding: 0 0 8px; }
+  .subtitle { margin-top: 12px; }
+  .workspace { grid-template-columns: 230px minmax(0, 1fr); gap: 20px; }
+  .input-row { grid-template-columns: minmax(0, 1fr) 110px; }
+  .add-button { grid-column: 1 / -1; }
+  .stat-card { padding: 20px; }
+}
+@media (max-width: 850px) {
+  .todo-app { width: calc(100% - 40px); margin-top: 24px; }
+  .workspace { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .input-row { grid-template-columns: minmax(0, 1fr) 125px auto; }
+  .add-button { grid-column: auto; }
+  .stat-card { padding: 18px; border-radius: 20px; }
+  .stat-card h2 { font-size: .8rem; }
+  .stat-value { font-size: 1.8rem; }
+}
+@media (max-width: 600px) {
+  .topbar { flex-wrap: wrap; gap: 18px; }
+  .preferences { gap: 10px; }
+  .brand { font-size: 1.3rem; }
+  .brand-mark { width: 38px; height: 38px; }
+  .overview { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 28px 0 20px; }
+  h1 { font-size: 2.4rem; }
+  .subtitle { font-size: .85rem; }
+  .stat-card { padding: 18px; }
+  .stat-card > .icon { width: 24px; height: 24px; margin-bottom: 6px; }
+  .stat-value { margin-top: 8px; }
+  #task-form { padding: 18px; }
+  .input-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+  #task-input { grid-column: 1 / -1; }
+  .add-button { padding: 10px; }
+  .list-panel { padding: 14px 12px; border-radius: 20px; }
+  .list-toolbar { gap: 8px; margin: 0 0 12px; }
+  .filters { width: 100%; gap: 2px; }
+  .filters button { flex: 1; font-size: .72rem; padding: 8px 5px; }
+  .task-item { grid-template-columns: minmax(0, 1fr) 36px; gap: 0 8px; padding: 10px 10px 10px 12px; }
+  .task-label { grid-column: 1; grid-row: 1; gap: 10px; padding: 3px 0 8px; }
+  .priority-badge { grid-column: 1; grid-row: 2; margin-left: 32px; font-size: .7rem; }
+  .delete-button { grid-column: 2; grid-row: 1 / 3; width: 36px; height: 40px; }
+}
+@media (max-width: 360px) {
+  .todo-app { width: calc(100% - 28px); }
+  .theme-switch button, .language-switch button { min-width: 48px; padding: 7px 12px; }
+  h1 { font-size: 2.1rem; }
+  .stat-card h2 { font-size: .75rem; }
+  .stat-card { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .task-item:hover, .add-button:hover { transform: none; }
+}

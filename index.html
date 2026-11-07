@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <script>
+      // Apply the saved theme before painting to avoid a flash of the wrong theme.
+      (() => {
+        let saved;
+        try { saved = localStorage.getItem("todo-list.theme.v1"); } catch {}
+        document.documentElement.dataset.theme = saved === "light" || saved === "dark"
+          ? saved : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      })();
+    </script>
+    <meta name="description" content="A simple to-do list saved in your browser.">
+    <title>My tasks — To-Do List</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <svg class="svg-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol><symbol id="icon-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol><symbol id="icon-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r=".7"/><circle cx="4" cy="12" r=".7"/><circle cx="4" cy="18" r=".7"/></symbol><symbol id="icon-active" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></symbol><symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol><symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20.5 14A9 9 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"/></symbol><symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="icon-fan" viewBox="0 0 24 24"><path d="m12 2 2.6 7.4L22 12l-7.4 2.6L12 22l-2.6-7.4L2 12l7.4-2.6Z"/></symbol><symbol id="icon-steps" viewBox="0 0 24 24"><path d="M4 19h5v-5h5V9h6M16 5h4v4"/></symbol><symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5M14 11v5"/></symbol></svg>
+    <main class="todo-app">
+      <div class="topbar">
+        <p class="brand"><span class="brand-mark"><svg class="icon " aria-hidden="true"><use href="#icon-check"></use></svg></span><span data-i18n="brand">Little Tasks</span><svg class="icon brand-spark" aria-hidden="true"><use href="#icon-fan"></use></svg></p>
+        <div class="preferences">
+          <div class="language-control">
+            <div class="language-switch" role="group" aria-label="Interface language" data-i18n-label="languageGroup">
+              <button type="button" data-language="en" aria-pressed="true" aria-label="English" data-i18n-label="english">EN</button>
+              <button type="button" data-language="ru" aria-pressed="false" aria-label="Russian" data-i18n-label="russian">RU</button>
+            </div>
+            <p id="language-status" class="status" role="status"></p>
+          </div>
+          <div class="theme-control">
+            <div class="theme-switch" role="group" aria-label="Color theme" data-i18n-label="themeGroup">
+              <button type="button" data-theme-choice="light" aria-pressed="true" aria-label="Light" data-i18n-label="light"><svg class="icon " aria-hidden="true"><use href="#icon-sun"></use></svg><span class="sr-only" data-i18n="light">Light</span></button>
+              <button type="button" data-theme-choice="dark" aria-pressed="false" aria-label="Dark" data-i18n-label="dark"><svg class="icon " aria-hidden="true"><use href="#icon-moon"></use></svg><span class="sr-only" data-i18n="dark">Dark</span></button>
+            </div>
+            <p id="theme-status" class="status" role="status"></p>
+          </div>
+        </div>
+      </div>
+
+      <header class="overview">
+        <div class="intro">
+          <p class="eyebrow" data-i18n="eyebrow">SMALL STEPS. BIG RESULTS.</p>
+          <h1 data-i18n="heading">My To-Do List</h1>
+          <p class="subtitle"><span data-i18n="subtitleFirst">Stay organized, focus on what matters,</span><br><span data-i18n="subtitleSecond">and make steady progress every day.</span></p>
+        </div>
+        <section class="stat-card progress-card" aria-labelledby="progress-heading">
+          <svg class="icon " aria-hidden="true"><use href="#icon-circle-check"></use></svg>
+          <h2 id="progress-heading" data-i18n="progressHeading">Progress</h2>
+          <p id="progress-percent" class="stat-value">0%</p>
+          <progress id="task-progress" max="1" value="0" aria-labelledby="progress-heading progress-percent"></progress>
+        </section>
+        <section class="stat-card total-card" aria-labelledby="total-heading">
+          <svg class="icon " aria-hidden="true"><use href="#icon-list"></use></svg>
+          <h2 id="total-heading" data-i18n="allTasks">All Tasks</h2>
+          <p id="stat-total" class="stat-value">0</p>
+        </section>
+        <section class="stat-card completed-card" aria-labelledby="completed-heading">
+          <svg class="icon " aria-hidden="true"><use href="#icon-circle-check"></use></svg>
+          <h2 id="completed-heading" data-i18n="completed">Completed</h2>
+          <p id="stat-completed" class="stat-value">0</p>
+        </section>
+        <section class="stat-card active-card" aria-labelledby="active-heading">
+          <svg class="icon " aria-hidden="true"><use href="#icon-active"></use></svg>
+          <h2 id="active-heading" data-i18n="active">Active</h2>
+          <p id="stat-active" class="stat-value">0</p>
+        </section>
+      </header>
+
+      <div class="workspace">
+        <aside class="sidebar" aria-label="Your progress" data-i18n-label="sidebarLabel">
+          <section class="encouragement">
+            <div class="win-art" aria-hidden="true"><span class="win-orbit"><svg class="icon " aria-hidden="true"><use href="#icon-circle-check"></use></svg></span><svg class="icon art-spark" aria-hidden="true"><use href="#icon-fan"></use></svg></div>
+            <h2 data-i18n="motivationHeading">Keep going!</h2>
+            <p id="motivation-text">Your next small win starts here.</p>
+          </section>
+          <section class="summary-card" aria-labelledby="summary-heading">
+            <h2 id="summary-heading" data-i18n="summaryHeading">Your progress</h2>
+            <p id="progress-text" aria-live="polite">0 of 0 completed</p>
+            <div class="summary-meter"><progress id="summary-progress" max="1" value="0" aria-labelledby="summary-heading progress-text"></progress><span id="summary-percent">0%</span></div>
+          </section>
+        </aside>
+
+        <section class="task-panel" aria-label="To-do list" data-i18n-label="taskSection">
+          <form id="task-form" novalidate>
+            <h2><label for="task-input" data-i18n="addHeading">Add a New Task</label></h2>
+            <div class="input-row">
+              <input id="task-input" name="task" type="text" placeholder="What do you want to do?" autocomplete="off" required>
+              <div class="priority-field">
+                <label class="sr-only" for="task-priority" data-i18n="priorityLabel">Task priority</label>
+                <select id="task-priority" name="priority">
+                  <option value="high" data-i18n="high">High</option>
+                  <option value="medium" data-i18n="medium" selected>Medium</option>
+                  <option value="low" data-i18n="low">Low</option>
+                </select>
+              </div>
+              <button class="add-button" type="submit"><svg class="icon " aria-hidden="true"><use href="#icon-plus"></use></svg><span data-i18n="add">Add Task</span></button>
+            </div>
+            <p id="status" class="status" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="list-panel">
+            <div class="list-toolbar">
+              <h2><span data-i18n="listHeading">Tasks</span><span id="list-count" class="count-badge">0</span></h2>
+              <div class="filters" role="group" aria-label="Task filter" data-i18n-label="filterGroup">
+                <button type="button" data-filter="all" aria-pressed="true"><span data-i18n="all">All</span> <span data-count="all">(0)</span></button>
+                <button type="button" data-filter="active" aria-pressed="false"><span data-i18n="active">Active</span> <span data-count="active">(0)</span></button>
+                <button type="button" data-filter="completed" aria-pressed="false"><span data-i18n="completed">Completed</span> <span data-count="completed">(0)</span></button>
+              </div>
+            </div>
+            <ul id="task-list" class="task-list" aria-label="Tasks" data-i18n-label="tasks"></ul>
+            <div id="empty-state" class="empty-state">
+              <span class="empty-icon"><svg class="icon " aria-hidden="true"><use href="#icon-list"></use></svg></span>
+              <p id="empty-title">No tasks yet</p>
+              <p id="empty-hint" class="empty-hint">Add your first task. Start small.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <footer><svg class="icon " aria-hidden="true"><use href="#icon-circle-check"></use></svg><span data-i18n="footer">Your tasks are saved in this browser.</span></footer>
+    </main>
+  </body>
+</html>
