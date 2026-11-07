@@ -6,7 +6,7 @@ A lightweight, responsive task manager with a playful Bento Dashboard, task prio
 
 Developed as a technical take-home assignment for a **Vibe Coder / AI-Assisted Developer** role. The project demonstrates an AI-assisted workflow, a simple architecture, and attention to usability without frameworks or external dependencies.
 
-**Live demo:** Not published yet. The deployment URL will be added here.
+**Live demo:** https://aleksandr88p.github.io/todo-list/
 
 ## Preview
 
